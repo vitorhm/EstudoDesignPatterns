@@ -1,7 +1,9 @@
 package behavioral;
 
-import javafx.util.Pair;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.AbstractMap;
+import java.util.Map;
 
 public class Interpreter {
 
@@ -46,7 +48,7 @@ public class Interpreter {
                     return op;
                 default:
                     if (Character.isDigit(expr)) {
-                        Pair<Integer, Numero> pair = buildNumero(expressao.substring(i));
+                        Map.Entry<Integer, Numero> pair = buildNumero(expressao.substring(i));
                         left = pair.getValue();
                         i = i + pair.getKey() - 1;
                         break;
@@ -58,7 +60,7 @@ public class Interpreter {
         return left;
     }
 
-    private static Pair<Integer, Numero> buildNumero(String expression) {
+    private static Map.Entry<Integer, Numero> buildNumero(String expression) {
 
         StringBuilder builder = new StringBuilder();
 
@@ -72,7 +74,7 @@ public class Interpreter {
             builder.append(expression.charAt(j));
         }
 
-        return new Pair<>(j, new Numero(Integer.parseInt(builder.toString())));
+        return new AbstractMap.SimpleEntry<>(j, new Numero(Integer.parseInt(builder.toString())));
     }
 
 }
